@@ -287,6 +287,6 @@ SELECT
 FROM
     employees
 WHERE
-    first_name LIKE '__a_' -- 이름이 네글자 중이 뒤에서 두 번째 글자가 a
+    first_name LIKE '__a_' -- 이름이 네글자 중 뒤에서 두 번째 글자가 a
     -- first_name LIKE '____' 이름이 네글자
     -- AND first_name LIKE '%a_'; 이면서 뒤에서 두 번째 글자가 a
