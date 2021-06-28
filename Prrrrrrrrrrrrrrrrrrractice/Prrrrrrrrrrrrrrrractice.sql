@@ -130,16 +130,18 @@ FROM
     employees;
 
 
--- Q23) + Table Nickname Practice
+-- Q23)
 SELECT
-    em.first_name
-    || '-'
-    || em.last_name       이름,
-    de.department_name    부서이름,
-    em.job_id             업무명
+    first_name       이름,
+    department_name  부서이름,
+    job_title        업무이름
 FROM
-    employees    em,
-    departments  de;
+    employees    emp,
+    departments  dep,
+    jobs         jobs
+WHERE
+        emp.department_id = dep.department_id
+    AND emp.job_id = jobs.job_id;
 
 
 -- Q11)
