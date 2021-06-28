@@ -481,14 +481,153 @@ FROM
 
 --
 
--- Q24)
+-- Q25)
 SELECT
-    jobs.job_title          업무이름,
-    MAX(emply.salary)       최고월급
+    job_title   업무이름,
+    max_salary  최고월급
 FROM
-    jobs       jobs,
-    employees  emply
-WHERE
-    jobs.job_id = emply.job_id
+    jobs
 ORDER BY
-    emply.salary DESC;
+    max_salary DESC;
+
+--
+
+-- Q46)
+SELECT
+    loct.location_id         도시아이디,
+    loct.city                도시명,
+    depmt.department_name    부서명,
+    depmt.department_id      부서아이디
+FROM
+    departments  depmt,
+    locations    loct
+WHERE
+    depmt.location_id = loct.location_id
+ORDER BY
+    loct.location_id ASC;
+
+-- Q46 - 1)
+SELECT
+    loct.location_id         도시아이디,
+    loct.city                도시명,
+    depmt.department_name    부서명,
+    depmt.department_id      부서아이디
+FROM
+    departments  depmt,
+    locations    loct
+WHERE
+    depmt.location_id (+) = loct.location_id
+ORDER BY
+    loct.location_id ASC;
+
+-- Q46 - 2)
+SELECT
+    loct.location_id         도시아이디,
+    loct.city                도시명,
+    depmt.department_name    부서명,
+    depmt.department_id      부서아이디
+FROM
+    departments  depmt
+    RIGHT OUTER JOIN locations    loct ON depmt.location_id = loct.location_id
+ORDER BY
+    loct.location_id ASC;
+
+--
+
+-- Q43)
+SELECT
+    first_name
+    || ' + '
+    || last_name   이름,
+    hire_date      입사일,
+    CASE
+        WHEN hire_date <= '02/12/31' THEN
+            '창립멤버'
+        WHEN '03/01/01' <= hire_date
+             AND hire_date <= '03/12/31' THEN
+            '03년입사'
+        WHEN '04/01/01' <= hire_date
+             AND hire_date <= '04/12/31' THEN
+            '04년입사'
+        ELSE
+            '상장이후입사'
+    END            "optDate"
+FROM
+    employees
+ORDER BY
+    hire_date ASC;
+
+--
+
+-- Q01)
+SELECT
+    first_name
+    || '-F-L-'
+    || last_name   이름,
+    phone_number   전화번호,
+    hire_date      입사일,
+    salary         연봉
+FROM
+    employees;
+
+--
+
+-- Q16)
+SELECT
+    first_name
+    || '_'
+    || last_name    이름,
+    salary          연봉,
+    commission_pct  커미션비율
+FROM
+    employees
+WHERE
+    commission_pct IS NOT NULL;
+
+--
+
+-- Q10)
+SELECT
+    first_name
+    || ' ^ '
+    || last_name   이름,
+    hire_date      입사일
+FROM
+    employees
+WHERE
+        '04/01/01' <= hire_date
+    AND hire_date <= '05/12/31';
+
+--
+
+-- Q05)
+SELECT
+    first_name
+    || '-'
+    || last_name                성명,
+    salary                      급여,
+    ( salary * 12 )             연봉,
+    ( ( salary * 12 ) + 5000 )  연봉2,
+    phone_number                전화번호
+FROM
+    employees;
+
+--
+
+-- Q48)
+SELECT
+    emply.employee_id        사번,
+    emply.first_name
+    || ': '
+    || emply.last_name       이름,
+    emply.hire_date          채용일,
+    manager.first_name
+    || '^ '
+    || manager.last_name     매니저이름,
+    manager.hire_date        매니저입사일
+FROM
+    employees  emply,
+    employees  manager
+WHERE
+        emply.manager_id = manager.employee_id
+    AND emply.hire_date < manager.hire_date;
