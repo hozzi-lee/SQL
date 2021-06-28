@@ -137,3 +137,46 @@ WHERE
 ORDER BY
     manager.employee_id ASC,
     emp.employee_id ASC;
+
+
+
+/*
+SubQuery
+*/
+
+-- Den의 정보 출력하여 급여 알아보기
+SELECT
+    salary      급여,
+    first_name  이름
+FROM
+    employees
+WHERE
+    first_name = 'Den';
+
+-- Den 의 급여(11000) 보다 많은 사람 구하기
+SELECT
+    salary      급여,
+    first_name  이름
+FROM
+    employees
+WHERE
+    salary > 11000;
+
+-- 11000을 first_name = 'Den' 의 salary 로 대체하기
+    --> 급여가 Den 보다 많은 사람 출력
+SELECT
+    first_name
+    || '-'
+    || last_name   이름,
+    salary         급여
+FROM
+    employees
+WHERE
+    salary > (
+        SELECT
+            salary
+        FROM
+            employees
+        WHERE
+            first_name = 'Den'
+    );
