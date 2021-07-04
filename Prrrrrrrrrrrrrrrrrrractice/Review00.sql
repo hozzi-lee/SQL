@@ -117,55 +117,55 @@ ORDER BY
 -- 단일행 함수_문자함수
 -- CONCAT(컬럼(문자열)1, 컬럼(문자열)2) = 컬럼(문자열) 결합. 연결연산자처럼 컬럼값 사이에 문자 추가 불가능.
 SELECT
-    CONCAT(first_name, last_name) 콘캣1,
-    CONCAT(email, job_id),
-    CONCAT(salary, hire_date),
-    CONCAT(first_name, salary),
-    CONCAT('abcd', 'bbdd') -- abcdbbdd
+    concat(first_name, last_name) 콘캣1,
+    concat(email, job_id),
+    concat(salary, hire_date),
+    concat(first_name, salary),
+    concat('abcd', 'bbdd') -- abcdbbdd
 FROM
     employees;
 -- INITCAP(컬럼(문자열)) = 첫 글자만 대문자로 출력
 SELECT
-    INITCAP(email),
-    INITCAP('abcde') -- Abcde
+    initcap(email),
+    initcap('abcde') -- Abcde
 FROM
     employees;
 -- LOWER(컬럼(문자열)) = 컬럼(문자열)를 소문자로 출력
 SELECT
-    LOWER(job_id),
-    LOWER('ASDGG') -- asdgg
+    lower(job_id),
+    lower('ASDGG') -- asdgg
 FROM
     employees;
 -- UPPER(컬럼(문자열)) = 컬럼(문자열)를 대문자로 출력
 SELECT
-    UPPER(first_name
-    || ') '
-    || last_name),
-    UPPER('abcdefg') -- ABCDEFG
+    upper(first_name
+          || ') '
+          || last_name),
+    upper('abcdefg') -- ABCDEFG
 FROM
     employees;
 -- LPAD(컬럼(문자열), 문자길이, 채울문자) = 컬럼(문자열)의 왼쪽 채움, 문자길이 = 기존문자열 + 추가될 문자열
 SELECT
-    LPAD(email, 10, '*'),
-    LPAD('ABCD', 10, 'o') -- ooooooABCD
+    lpad(email, 10, '*'),
+    lpad('ABCD', 10, 'o') -- ooooooABCD
 FROM
     employees;
 -- RPAD(컬럼(문자열), 문자길이, 채울문자) = 컬럼(문자열)의 오른쪽 채움, 문자길이 = 기존문자열 + 추가될 문자열
 SELECT
-    RPAD(email, 10, '*'),
-    RPAD('ABCD', 10, 'o') -- ABCDoooooo
+    rpad(email, 10, '*'),
+    rpad('ABCD', 10, 'o') -- ABCDoooooo
 FROM
     employees;
 -- LTRIM(컬럼(문자열), D문자) = 컬럼(문자열)에서 왼쪽에있는 D문자 제거
 SELECT
-    LTRIM('asdasd', 'as'), -- dasd
-    LTRIM(first_name, 'a')
+    ltrim('asdasd', 'as'), -- dasd
+    ltrim(first_name, 'a')
 FROM
     employees;
 -- RTRIM(컬럼(문자열), D문자) = 컬럼(문자열)에서 오른쪽에있는 D문자 제거
 SELECT
-    RTRIM('asdasdasd', 'sd'), -- asdasda
-    RTRIM(first_name, 'd')
+    rtrim('asdasdasd', 'sd'), -- asdasda
+    rtrim(first_name, 'd')
 FROM
     employees;
 -- CHR(숫자) = ASCII값의 문자 출력
@@ -176,88 +176,227 @@ FROM
     dual;
 -- REPLACE(컬럼(문자열), 문자열1, 문자열2) = 컬럼(문자열)속 문자열1을 문자열2로 변환
 SELECT
-    REPLACE('이호진', '호', '이'), -- 이이진
-    REPLACE(first_name, 'a', '짠')
+    replace('이호진', '호', '이'), -- 이이진
+    replace(first_name, 'a', '짠')
 FROM
     employees;
 -- SUBSTR(컬럼(문자열), x번째부터, y길이만큼) = 컬럼(문자열)에서 x번째부터 y길이만큼의 문자 출력
 SELECT
-    SUBSTR(first_name, 3, 3),
-    SUBSTR('123456789', 3, 3) -- 345
+    substr(first_name, 3, 3),
+    substr('123456789', 3, 3) -- 345
 FROM
     employees;
 -- TRANSLATE(컬럼(문자열), from, to) = 컬럼(문자열)에서 from 문자열의 각 문자를 to문자열의 각 문자로 변환
 SELECT
-    TRANSLATE('ABCDEFG', 'CD', 'asddfg') -- 이럴바엔 REPLACE를 쓰지...
+    translate('ABCDEFG', 'CD', 'asddfg') -- 이럴바엔 REPLACE를 쓰지...
 FROM
     dual;
 -- ASCII(문자) = ASCII값 반환 --> 문자열일 경우 첫 글자에 해당하는 ASCII값 반환
 SELECT
-    ASCII('%A'), -- 37
-    ASCII('A%'), -- 65
-    ASCII(first_name)
+    ascii('%A'), -- 37
+    ascii('A%'), -- 65
+    ascii(first_name)
 FROM
     employees;
 -- LENGTH(문자열) = 문자열의 길이 반환
 SELECT
-    LENGTH(first_name),
-    LENGTH('asdasd') -- 6
+    length(first_name),
+    length('asdasd') -- 6
 FROM
     employees;
 
 -- 단일행 함수_숫자함수
 -- ABS(숫자) = 절대값
 SELECT
-    ABS(-123), -- 123
-    ABS(-999) -- 999
+    abs(- 123), -- 123
+    abs(- 999) -- 999
 FROM
     dual;
 -- CEIL(숫자) = 숫자보다 크거나 같은 최소 정수
 SELECT
-    CEIL(-2.34), -- -2
-    CEIL(-1.99), -- -1
-    CEIL(1.99) -- 2
+    ceil(- 2.34), -- -2
+    ceil(- 1.99), -- -1
+    ceil(1.99) -- 2
 FROM
     dual;
 -- FLOOR(숫자) = 숫자보다 작거나 같은 최대 정수
 SELECT
-    FLOOR(-2.4), -- -3
-    FLOOR(-1.99), -- -2
-    FLOOR(1.99) -- 1
+    floor(- 2.4), -- -3
+    floor(- 1.99), -- -2
+    floor(1.99) -- 1
 FROM
     dual;
 -- MOD(숫자1, 숫자2) = 숫자1/숫자2 의 나머지
 SELECT
-    MOD(123, 12), -- 3
-    MOD(13, 2) -- 1
+    mod(123, 12), -- 3
+    mod(13, 2) -- 1
 FROM
     dual;
 -- POWER(숫자1, 숫자2) = 숫자1의 숫자2 승
 SELECT
-    POWER(12, 2), -- 144
-    POWER(2, 4) -- 16
+    power(12, 2), -- 144
+    power(2, 4) -- 16
 FROM
     dual;
 -- ROUND(숫자1, 숫자2) = 숫자1의 소수점 아래 숫자2자리까지 반올림
 SELECT
-    ROUND(123.45678, 2), -- 123.46
-    ROUND(123.45678, 0), -- 123
-    ROUND(123.45678, -2), -- 100
-    ROUND(153.45678, -2) -- 200
+    round(123.45678, 2), -- 123.46
+    round(123.45678, 0), -- 123
+    round(123.45678, - 2), -- 100
+    round(153.45678, - 2) -- 200
 FROM
     dual;
 -- TRUNC(숫자1, 숫자2) = 숫자1의 소수점 아래 숫자2자리까지 버림
 SELECT
-    TRUNC(123.45678, 2), -- 123.45
-    TRUNC(123.45678, 0), -- 123
-    TRUNC(123.45678, -2), -- 100
-    TRUNC(153.45678, -2) -- 100
+    trunc(123.45678, 2), -- 123.45
+    trunc(123.45678, 0), -- 123
+    trunc(123.45678, - 2), -- 100
+    trunc(153.45678, - 2) -- 100
 FROM
     dual;
 -- SIGN(숫자1) = 부호(1, 0, -1)
 SELECT
-    SIGN(-20), -- -1
-    SIGN(0), -- 0
-    SIGN(20) -- 1
+    sign(- 20), -- -1
+    sign(0), -- 0
+    sign(20) -- 1
+FROM
+    dual;
+
+-- 단일행 함수_날짜함수
+-- sysdate(현재날짜) 출력 가상테이블 dual
+SELECT
+    sysdate
+FROM
+    dual;
+
+-- ADD_MONTHS(날짜, 월) = x날짜에 x월을 더함
+SELECT
+    add_months(sysdate, 3) -- 21/07/01 + 3월 = 21/10/01
+FROM
+    dual;
+-- LAST_DAY(날짜) = 날짜의 월에 대한 마지막 일
+SELECT
+    last_day(sysdate), -- 21/07/01 --> 21/07/31
+    last_day('2021/01/01'), --> 21/01/31
+    last_day('21/01/01') --> 21/01/31
+--  LAST_DAY(3) 오류
+--  LAST_DAY('01/01') 오류
+FROM
+    dual;
+-- MONTHS_BETWEEN(날짜, 날짜) = 날짜와 날짜 사이의 개월수
+SELECT
+    months_between('23/01/30', sysdate), -- 23/01/30, 21/07/01 = 18.90390232974910394265232974910394265233
+    months_between(sysdate, '23/01/30') -- 21/07/01, 23/01/30 = -18.90390232974910394265232974910394265233
+FROM
+    dual;
+-- NEW_TIME(뭔소리야;)
+
+-- NEXT_DAY(날짜, 요일) = 날짜 이후 첫 요일이 시작되는 날짜
+SELECT
+    next_day('21/06/30', 'FRIDAY') -- 오류;;;;;;;;;;;;;왜안돼
+FROM
+    dual;
+-- ROUND(날짜, 연or월or일) = 연월일을 반올림하여 날짜에 적용
+SELECT
+    round(sysdate, 'MONTH'), -- 21/07/01 --> 21/07/01
+    round(sysdate, 'YEAR'), -- 21/07/01 --> 22/01/01
+    round(sysdate, 'DAY') -- 21/07/01 --> 21/07/04
+FROM
+    dual;
+-- TRUNC(날짜, 연or월or일) = 연월일을 내림하여 날짜에 적용
+SELECT
+    trunc(sysdate, 'MONTH'), -- 21/07/01 --> 21/07/01
+    trunc(sysdate, 'YEAR'), -- 21/07/01 --> 21/01/01
+    trunc(sysdate, 'DAY') -- 21/07/01 --> 21/06/27
+FROM
+    dual;
+
+-- 단일행 숫자변환함수 to_char(숫자, '출력모양') = 숫자 -> 문자형
+-- to_char(숫자, '99999...') = 숫자를 '9999...' 자릿수 만큼 표시
+SELECT
+    to_char(931007981106, '9999999999999') -- 931007981106
+FROM
+    dual;
+-- to_char(숫자, '0099999...') = 숫자를 '0099999...' 자릿수의 빈자리를 0으로 채움
+SELECT
+    to_char(931007981106, '0099999999999999999') -- 0000000931007981106
+FROM
+    dual;
+-- to_char(숫자, '$9999...') = 숫자앞에 $를 붙여서 출력
+SELECT
+    to_char(931007981106, '$9999999999999') -- $931007981106
+FROM
+    dual;
+-- to_char(숫자, '9999....99') = 숫자에 소수점 이하를 표시
+SELECT
+    to_char(931007981106, '9999999999999999.99') -- 931007981106.00
+FROM
+    dual;
+-- to_char(숫자, '999,999, ...') = 숫자를 천 단위 구분기호 표시
+SELECT
+    to_char(931007981106, '999,999,999,999') -- 931,007,981,106
+FROM
+    dual;
+
+-- 단일행 날짜변환함수 to_char(날짜, '출력모양') = 날짜 -> 문자형
+-- to_char(sysdate, 'yyyy') = 날짜의 연도를 4자리로 표시
+SELECT
+    to_char(sysdate, 'yyyy') -- 2021
+FROM
+    dual;
+-- to_char(sysdate, 'yy') = 날짜의 연도를 2자리로 표시
+SELECT
+    to_char(sysdate, 'yy') -- 21
+FROM
+    dual;
+-- to_char(sysdate, 'mm') = 날짜의 월을 표시
+SELECT
+    to_char(sysdate, 'mm') -- 07
+FROM
+    dual;
+-- to_char(sysdate, 'mon/month') = 날짜의 월을 한글/영어로 표시
+SELECT
+    to_char(sysdate, 'mon'), -- 7월
+    to_char(sysdate, 'month') -- 7월
+FROM
+    dual;
+-- to_char(sysdate, 'dd') = 날짜의 일을 표시
+SELECT
+    to_char(sysdate, 'dd') -- 04
+FROM
+    dual;
+-- to_char(sysdate, 'day') = 날짜의 요일을 표시
+SELECT
+    to_char(sysdate, 'day') -- 일요일
+FROM
+    dual;
+-- to_char(sysdate, 'ddth') = 날짜의 월의 몇번째 일인지 표시
+SELECT
+    to_char(sysdate, 'ddth') -- 04th
+FROM
+    dual;
+-- to_char(sysdate, 'hh24') = 하루를 24시간 형식으로 표시
+SELECT
+    to_char(sysdate, 'hh24') -- 14
+FROM
+    dual;
+-- to_char(sysdate, 'hh') = 하루를 12시간 형식으로 표시
+SELECT
+    to_char(sysdate, 'hh') -- 02
+FROM
+    dual;
+-- to_char(sysdate, 'mi') = 분을 표시
+SELECT
+    to_char(sysdate, 'mi')
+FROM
+    dual;
+-- to_char(sysdate, 'ss') = 초를 표시
+SELECT
+    to_char(sysdate, 'ss')
+FROM
+    dual;
+-- to_char(sysdate, '종합')
+SELECT
+    to_char(sysdate, 'yyyy. mm. dd. hh24:mi:ss')
 FROM
     dual;
